@@ -15,16 +15,17 @@ training = False
 trained = True
 
 if training:
-    fps = 500
+    fps = 1500
     env = SnakeEnv(run_speed=fps) # run_speed = n, n is arbitrary for the # fps the board is being rendered in. 
     model = DQN('MlpPolicy', env, verbose=2) # Deep Q-Network Model, verbose = {0, 1, 2} : live-logging level
     render_callback = RenderCallback(env) # rendering of training
-    model.learn(total_timesteps=5E3, callback=render_callback)
+    training_steps = 5E5
+    model.learn(total_timesteps=training_steps, callback=render_callback)
     model.save("snake_dqn")
 
 
 if trained: # Load trained model
-    fps = 60
+    fps = 20
     env = SnakeEnv(run_speed=fps)
     model = DQN.load("snake_dqn")
     obs = env.reset()
