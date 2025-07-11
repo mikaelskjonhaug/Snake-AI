@@ -1,5 +1,5 @@
 ## Snake-AI
-
+https://github.com/user-attachments/assets/e77dc2ae-5f85-45e7-b6ab-ee8236dfdba7
 Easily train a reinforcement learning agent to play the classic Snake game using DQN and OpenAI Gym.
 
 ## Description
@@ -10,6 +10,9 @@ This project uses Deep Q-Learning (DQN) to train an AI agent that learns to play
 ## Dependencies
 
 * Python 3.8+
+
+
+
 * pygame
 * numpy
 * gym
