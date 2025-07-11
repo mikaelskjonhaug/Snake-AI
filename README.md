@@ -1,5 +1,7 @@
 ## Snake-AI
-https://github.com/user-attachments/assets/e77dc2ae-5f85-45e7-b6ab-ee8236dfdba7
+
+https://github.com/user-attachments/assets/86eee528-c427-40f0-93f9-b52bc04ee229
+
 Easily train a reinforcement learning agent to play the classic Snake game using DQN and OpenAI Gym.
 
 ## Description
