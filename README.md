@@ -1,4 +1,4 @@
-## Snake-AI
+# Snake-AI
 
 https://github.com/user-attachments/assets/c7126abf-2d52-44aa-8940-d41851fcbbf0
 
@@ -12,18 +12,15 @@ This project uses Deep Q-Learning (DQN) to train an AI agent that learns to play
 ## Dependencies
 
 * Python 3.8+
-
-
-
 * pygame
 * numpy
 * gym
 * stable-baselines3
 
 ## How to train
-# In SnakeEnv.py
+### In SnakeEnv.py
 * To change the rewards change death penalty / food reward under _calculate_reward()
-# In Agent.py
+### In Agent.py
 * Set training to True
 * Set desired training steps 
 * Run Agent.py
