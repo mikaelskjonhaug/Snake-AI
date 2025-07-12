@@ -4,7 +4,7 @@ Easily train a reinforcement learning agent to play the classic Snake game using
 
 ## Description
 
-This project uses Deep Q-Learning (DQN) to train an AI agent that learns to play Snake through trial and error. The environment is built with Pygame and wrapped as a Gym-compatible interface for seamless training with Stable-Baselines3.
+This project uses Deep Q-Learning (DQN) to train an AI agent that learns to play Snake through trial and error. The environment is built with Pygame and wrapped as a Gym-compatible interface for seamless training with Stable-Baselines3. The model will always render as it's learning so to speed up training change the rendering FPS. 
 
 
 ## Dependencies

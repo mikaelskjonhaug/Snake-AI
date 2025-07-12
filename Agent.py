@@ -25,7 +25,7 @@ if training:
 
 
 if trained: # Load trained model
-    fps = 20
+    fps = 10
     env = SnakeEnv(run_speed=fps)
     model = DQN.load("snake_dqn")
     obs = env.reset()
