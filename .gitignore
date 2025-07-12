@@ -1,6 +1,9 @@
 # Local .terraform directories
 .terraform/
 
+# ignore training data
+*.zip
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
