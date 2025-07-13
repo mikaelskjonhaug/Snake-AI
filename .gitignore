@@ -43,3 +43,4 @@ terraform.rc
 __pycache__/SnakeEnv.cpython-311.pyc
 __pycache__/SnakeEnv.cpython-311.pyc
 __pycache__
+/__pycache__
