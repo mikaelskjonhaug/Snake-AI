@@ -39,3 +39,6 @@ override.tf.json
 .terraformrc
 terraform.rc
 .DS_Store
+*.csv
+__pycache__/SnakeEnv.cpython-311.pyc
+__pycache__/SnakeEnv.cpython-311.pyc

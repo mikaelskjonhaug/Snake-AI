@@ -1,6 +1,10 @@
 from stable_baselines3 import DQN
 from stable_baselines3.common.callbacks import BaseCallback
+from stable_baselines3.common.monitor import Monitor
 from SnakeEnv import SnakeEnv 
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
 class RenderCallback(BaseCallback):
     def __init__(self, env, verbose=0):
@@ -11,24 +15,47 @@ class RenderCallback(BaseCallback):
         self.env.render()
         return True
 
-training = False
-trained = True
+training = True
+trained = False
 
 if training:
+    # Train the model
     fps = 1500
-    env = SnakeEnv(run_speed=fps) # run_speed = n, n is arbitrary for the # fps the board is being rendered in. 
-    model = DQN('MlpPolicy', env, verbose=2) # Deep Q-Network Model, verbose = {0, 1, 2} : live-logging level
-    render_callback = RenderCallback(env) # rendering of training
-    training_steps = 5E5
-    model.learn(total_timesteps=training_steps, callback=render_callback)
+    env = Monitor(SnakeEnv(run_speed=fps), filename="./log/") # run_speed = n, n is arbitrary for the # fps the board is being rendered in. 
+    model = DQN('MlpPolicy', env, verbose=0) # Deep Q-Network Model, verbose = {0, 1, 2} : live-logging level
+    training_steps = 5E4
+    render_training = False
+    if render_training:
+        render_callback = RenderCallback(env) # rendering of training
+        model.learn(total_timesteps=training_steps, callback=render_callback)
+    else:
+        model.learn(total_timesteps=training_steps)
     model.save("snake_dqn")
+    env.close()
+
+    # Graph training
+    data = pd.read_csv("./log/monitor.csv", skiprows=1)
+    rewards = data['r'].values + 1
+    episodes = len(data)
+
+    # Average rewards over bin_size # episodes
+    # ~100 = episodes / bin_size : to get ~100 data plots.
+    bin_size = int(episodes / 100)
+    binned_rewards = [np.mean(rewards[i:i+bin_size]) for i in range(0, len(rewards), bin_size)]
+
+    plt.plot(range(len(binned_rewards)), binned_rewards)
+    plt.xlabel(f'1 = {bin_size} episodes')
+    plt.ylabel('Reward')
+    plt.title('Episode vs Reward')
+    plt.show()
+
 
 
 if trained: # Load trained model
     fps = 10
     env = SnakeEnv(run_speed=fps)
     model = DQN.load("snake_dqn")
-    obs = env.reset()
+    obs, _ = env.reset()
     tot_reward = 0
     steps = 2000
     for _ in range(steps):
@@ -39,4 +66,4 @@ if trained: # Load trained model
         if done:
             print(tot_reward)
             tot_reward = 0
-            obs = env.reset()
+            obs, _ = env.reset()

@@ -1,5 +1,5 @@
-import gym
-from gym import spaces
+import gymnasium as gym
+from gymnasium import spaces
 import numpy as np
 import pygame
 import random
@@ -12,7 +12,6 @@ class SnakeEnv(gym.Env):
         self.run_speed = run_speed
         self.action_space = spaces.Discrete(4)
 
-        # Define observation space: We'll use a simple array
         # Observation: [danger_straight, danger_right, danger_left, 
         #               food_direction_x, food_direction_y, 
         #               direction_left, direction_right, direction_up, direction_down]
@@ -33,8 +32,8 @@ class SnakeEnv(gym.Env):
         # Initialize game state
         self.reset()
 
-    def reset(self):
-        # Reset the state of the environment to an initial state
+    def reset(self, *, seed=None, options=None):
+        super().reset(seed=seed)  # optional: sets the seed
         self.snake = [[self.grid_size // 2, self.grid_size // 2]] 
         self.snake_direction = random.choice(['UP', 'DOWN', 'LEFT', 'RIGHT'])
         self.snake_length = 1
@@ -42,13 +41,12 @@ class SnakeEnv(gym.Env):
         self.score = 0
         self.done = False
 
-        return self._get_observation()
+        return self._get_observation(), {}
 
     def step(self, action):
         # Execute one time step within the environment
         if self.done:
-            # If game is over, reset the environment
-            return self.reset(), 0, True, {}
+            return self.reset(), 0.0, True, False, {}
 
         # Update the direction
         self._update_direction(action)
@@ -61,7 +59,10 @@ class SnakeEnv(gym.Env):
         # Get observation
         observation = self._get_observation()
 
-        return observation, reward, self.done, {}
+        terminated = self.done
+        truncated = False
+
+        return observation, reward, terminated, truncated, {}
 
     def render(self, mode='human'):
         # Render the environment to the screen
