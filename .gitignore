@@ -42,3 +42,4 @@ terraform.rc
 *.csv
 __pycache__/SnakeEnv.cpython-311.pyc
 __pycache__/SnakeEnv.cpython-311.pyc
+__pycache__
